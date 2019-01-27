@@ -1,21 +1,33 @@
 import React, { Component } from "react";
 import TodoItem from "../../components/TodoItem/TodoItem";
+import { connect } from "react-redux";
+import { toggleCompleted } from "../../actions";
 
-export default class ToDoList extends Component {
-  contructor(props) {
-    super(props);
-    this.state = {
-      todos: []
-    };
-  }
-
+class TodoList extends Component {
   render() {
     return (
       <div className="todos__container">
-        {this.state.todos.map((todo, index) => {
-          return <TodoItem key={index} todoOnProps={todo} />;
+        {this.props.todos.map((todo, index) => {
+          return (
+            <TodoItem
+              key={index}
+              todoOnProps={todo}
+              toggleCompleted={this.props.toggleCompleted}
+            />
+          );
         })}
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    todos: state.todos
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { toggleCompleted }
+)(TodoList);
