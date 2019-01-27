@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addTodo } from "../../actions";
+import { addTodo, clearTodo } from "../../actions";
 
 class TodoForm extends Component {
   state = {
@@ -18,6 +18,11 @@ class TodoForm extends Component {
     this.props.addTodo(this.state.newTodoText);
   };
 
+  clearTodo = e => {
+    e.preventDefault();
+    this.props.clearTodo();
+  };
+
   render() {
     return (
       <form className="todo__form" onSubmit={this.addTodo}>
@@ -28,6 +33,9 @@ class TodoForm extends Component {
           value={this.state.newTodoText}
         />
         <button type="submit">Submit</button>
+        <button type="button" onClick={this.clearTodo}>
+          Clear
+        </button>
       </form>
     );
   }
@@ -35,5 +43,5 @@ class TodoForm extends Component {
 
 export default connect(
   null,
-  { addTodo }
+  { addTodo, clearTodo }
 )(TodoForm);

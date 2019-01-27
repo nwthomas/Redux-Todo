@@ -1,5 +1,4 @@
-import { ADD_TODO } from "../actions";
-import { TOGGLE_COMPLETED } from "../actions";
+import { ADD_TODO, TOGGLE_COMPLETED, CLEAR_TODO } from "../actions";
 
 const initialState = {
   whatever: "value",
@@ -33,6 +32,12 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         todos: updatedTodo
+      };
+    case CLEAR_TODO:
+      const clearedTodos = state.todos.filter(todo => todo.completed === false);
+      return {
+        ...state,
+        todos: clearedTodos
       };
     case ADD_TODO:
       return {
